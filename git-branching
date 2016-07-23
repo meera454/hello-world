@@ -1,8 +1,8 @@
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch
 * master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ ll
 total 5
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 configs/
@@ -10,19 +10,19 @@ drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 notes/
 -rw-r--r-- 1 ANIL+Arjun 197121 10 Jun 20 09:34 README.md
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 tasks/
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch feature1
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch
   feature1
 * master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git checkout feature1
 Switched to branch 'feature1'
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ ll
 total 5
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 configs/
@@ -30,15 +30,15 @@ drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 notes/
 -rw-r--r-- 1 ANIL+Arjun 197121 10 Jun 20 09:34 README.md
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 tasks/
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ vi intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git add intro.txt
 warning: LF will be replaced by CRLF in intro.txt.
 The file will have its original line endings in your working directory.
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ ll
 total 6
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 configs/
@@ -47,11 +47,11 @@ drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 notes/
 -rw-r--r-- 1 ANIL+Arjun 197121 10 Jun 20 09:34 README.md
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 tasks/
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git s
 A  intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git commit -am "Added intro"
 [feature1 ee4ee44] Added intro
 warning: LF will be replaced by CRLF in intro.txt.
@@ -59,7 +59,7 @@ The file will have its original line endings in your working directory.
  1 file changed, 3 insertions(+)
  create mode 100644 intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git push origin feature1
 Warning: Permanently added the RSA host key for IP address '192.30.252.120' to the list of known hosts.
 Counting objects: 3, done.
@@ -70,21 +70,21 @@ Total 3 (delta 0), reused 0 (delta 0)
 To git+ssh://vmsnivas@github.com/vmsnivas/git.git
  * [new branch]      feature1 -> feature1
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git branch
 * feature1
   master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git checkout master
 Switched to branch 'master'
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch
   feature1
 * master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git merge feature1
 Updating 13525fc..ee4ee44
 Fast-forward
@@ -92,24 +92,24 @@ Fast-forward
  1 file changed, 3 insertions(+)
  create mode 100644 intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git s
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git lg --since=1.day
 * ee4ee44 (HEAD -> master, origin/feature1, feature1) Added intro
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git push origin master
 Total 0 (delta 0), reused 0 (delta 0)
 To git+ssh://vmsnivas@github.com/vmsnivas/git.git
    13525fc..ee4ee44  master -> master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git checkout feature1
 Switched to branch 'feature1'
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ ll
 total 6
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 configs/
@@ -118,22 +118,22 @@ drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 notes/
 -rw-r--r-- 1 ANIL+Arjun 197121 10 Jun 20 09:34 README.md
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 tasks/
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ vi intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git add intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git s
 M  intro.txt
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git commit -am "Modified intro on feature1"
 [feature1 9230d5a] Modified intro on feature1
  1 file changed, 1 insertion(+)
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git push origin feature1
 Counting objects: 3, done.
 Delta compression using up to 4 threads.
@@ -143,11 +143,11 @@ Total 3 (delta 1), reused 0 (delta 0)
 To git+ssh://vmsnivas@github.com/vmsnivas/git.git
    ee4ee44..9230d5a  feature1 -> feature1
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (feature1)
 $ git checkout master
 Switched to branch 'master'
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ ll
 total 6
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 configs/
@@ -156,43 +156,43 @@ drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 notes/
 -rw-r--r-- 1 ANIL+Arjun 197121 10 Jun 20 09:34 README.md
 drwxr-xr-x 1 ANIL+Arjun 197121  0 Jun 20 09:34 tasks/
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ car intro.txt
 bash: car: command not found
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ cat intro.txt
 # Introduction of users
 
 Arjun - Admin of Git Repo
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git merge feature1
 Updating ee4ee44..9230d5a
 Fast-forward
  intro.txt | 1 +
  1 file changed, 1 insertion(+)
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git push origin master
 Total 0 (delta 0), reused 0 (delta 0)
 To git+ssh://vmsnivas@github.com/vmsnivas/git.git
    ee4ee44..9230d5a  master -> master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch
   feature1
 * master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch -D feature1
 Deleted branch feature1 (was 9230d5a).
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git branch
 * master
 
-ANIL+Arjun@Anil MINGW64 /d/Arjun/Nivas/GitHub/vmsnivas/git (master)
+Arjun@localhost/d/Arjun/Nivas/GitHub/vmsnivas/git (master)
 $ git push origin :feature1
 To git+ssh://vmsnivas@github.com/vmsnivas/git.git
  - [deleted]         feature1
