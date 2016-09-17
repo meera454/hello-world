@@ -1,0 +1,132 @@
+#### Step 1:
+Download Tomcat from http://tomcat.apache.org/download-60.cgi
+#### Step 2:
+Extract it into two different folders, let’s say /opt/Tomcat_1 and /opt/Tomcat_2
+#### Step 3:
+Keep Tomcat_1 instance as it is and change following things in Tomcat_2 instance
+Edit /opt/Tomcat_2/apache-tomcat-9.0.0.M10/conf/server.xml and change port number
+
+<server port="8006" shutdown="SHUTDOWN">
+
+    .....
+
+	<Connector port="8181" protocol="HTTP/1.1"
+
+	        connectionTimeout="20000"
+	
+		redirectPort="8443" />
+    
+    .....
+	
+	<Connector port="8010" protocol="AJP/1.3" redirectPort="8443" />
+
+#### Step 4:
+Create following two scripts to run Tomcat as a service
+##########  Create /etc/init.d/tomcat_1 with following instructions
+
+
+#!/bin/bash
+
+# description: Tomcat Start Stop Restart
+
+# processname: tomcat
+
+# chkconfig: 234 20 80
+
+JAVA_HOME=/opt/jdk1.8.0_101
+
+export JAVA_HOME
+
+PATH=$JAVA_HOME/bin:$PATH
+
+export PATH
+
+CATALINA_HOME=/opt/apache_tomcat/apache-tomcat-9.0.0.M10
+case $1 in
+
+start)
+
+sh $CATALINA_HOME/bin/startup.sh
+
+;;
+
+stop)
+
+sh $CATALINA_HOME/bin/shutdown.sh
+
+;;
+
+restart)
+
+sh $CATALINA_HOME/bin/shutdown.sh
+
+sh $CATALINA_HOME/bin/startup.sh
+
+;;
+
+esac
+
+exit 0
+
+
+######## Create /etc/init.d/tomcat_2 with following instructions
+
+
+#!/bin/bash
+
+# description: Tomcat Start Stop Restart
+
+# processname: tomcat
+
+# chkconfig: 234 20 80
+
+JAVA_HOME=/opt/jdk1.8.0_101
+
+export JAVA_HOME
+
+PATH=$JAVA_HOME/bin:$PATH
+
+export PATH
+
+CATALINA_HOME=/opt/Tomcat_2/apache-tomcat-9.0.0.M10
+case $1 in
+
+start)
+
+sh $CATALINA_HOME/bin/startup.sh
+
+;;
+
+stop)
+
+sh $CATALINA_HOME/bin/shutdown.sh
+
+;;
+
+restart)
+
+sh $CATALINA_HOME/bin/shutdown.sh
+
+sh $CATALINA_HOME/bin/startup.sh
+
+;;
+
+esac
+
+exit 0
+
+
+#### Step 5:
+##Start/Stop Tomcat service
+
+Service tomcat_1 start/stop/restart
+Service tomcat_2 start/stop/restart
+
+#### Step 6:
+##Add Tomcat service in startup
+
+chkconfig Tomcat_1 on
+chkconfig Tomcat_2 on
+
+###This will enable you to use two instances of Tomcat on a single machine.
+###Note: Please open relevant port numbers in server firewall.

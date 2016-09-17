@@ -33,7 +33,7 @@ After you have downloaded the package, make sure to verify the MD5 checksum agai
  # firewall-cmd --reload
 
  ##Start Tomcat
- If you followed all these #### Steps correctly, you should be able to start Tomcat via its included startup script, startup.sh:
+ ## If you followed all these #### Steps correctly, you should be able to start Tomcat via its included startup script, startup.sh:
  [root@client2 ~]# $CATALINA_HOME/bin/startup.sh
  Using CATALINA_BASE:   /opt/apache_tomcat/apache-tomcat-9.0.0.M10
  Using CATALINA_HOME:   /opt/apache_tomcat/apache-tomcat-9.0.0.M10
@@ -48,3 +48,15 @@ After you have downloaded the package, make sure to verify the MD5 checksum agai
  Tomcat runs on port 8080 by default.  To check if your server is up and running correctly, use:
  [root@client2 ~]# netstat -ntulp | grep 8080
  tcp6       0      0 :::8080                 :::*                    LISTEN      6417/java
+########################################################################################################################################################################
+
+#### if you getting 403 error while accessing manager-gui... follow the below instructions### 
+#403 ACCESS DENIED ON TOMCAT 8 MANAGER APP WITHOUT PROMPTING FOR USER/PASSWORD
+
+#This may be work.
+#Find the CATALINA_HOME/webapps/manager/META-INF/context.xml file and add the comment markers around the Valve.
+#<Context antiResourceLocking="false" privileged="true" >
+#<!--
+#<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+#-->
+#</Context>
