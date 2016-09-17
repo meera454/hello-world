@@ -1,0 +1,50 @@
+##Download Apache Tomcat zip file from Apache tomcat official download page. You can use below wget command to download it.
+
+[root@client2 ~]# wget http://mirror.fibergrid.in/apache/tomcat/tomcat-9/v9.0.0.M10/bin/apache-tomcat-9.0.0.M10.zip
+After you have downloaded the package, make sure to verify the MD5 checksum against the key provided on the Apache website, like this:
+[root@client2 ~]# md5sum apache-tomcat-9.0.0.M10.zip
+0606e01958da5bdfbd004684d4c11d2f  apache-tomcat-9.0.0.M10.zip
+
+
+##Configuring Environment Variables 
+
+##If you haven't already done so during a different application's install process, you'll need to set the JAVA_HOME environment variable in order for Tomcat to run.
+##We recommend doing this by editing ".bashrc", as it this will allow you to set up automatic start for Tomcat, if you need it.  Open the file with vi:
+
+#vi ~/.bashrc
+ ...And set the variable like this:
+ ##Setup JAVA_HOME Variable
+ export JAVA_HOME=/opt/jdk1.8.0_101
+
+ ##Setup JRE_HOME Variable
+ export JRE_HOME=/opt/jdk1.8.0_101/jre
+
+ ##Setup PATH Variable
+ export PATH=$PATH:/opt/jdk1.8.0_101/bin:/opt/jdk1.8.0_101/jre/bin
+
+ ##Setup CATALINA_HOME variable
+ export CATALINA_HOME=/opt/apache_tomcat/apache-tomcat-9.0.0.M10
+
+ Esc and :wq
+
+ Then open the required port(default 8080 for tomcat) to allow firewall
+
+ # firewall-cmd --permanent --add-port=8080/tcp
+ # firewall-cmd --reload
+
+ ##Start Tomcat
+ If you followed all these #### Steps correctly, you should be able to start Tomcat via its included startup script, startup.sh:
+ [root@client2 ~]# $CATALINA_HOME/bin/startup.sh
+ Using CATALINA_BASE:   /opt/apache_tomcat/apache-tomcat-9.0.0.M10
+ Using CATALINA_HOME:   /opt/apache_tomcat/apache-tomcat-9.0.0.M10
+ Using CATALINA_TMPDIR: /opt/apache_tomcat/apache-tomcat-9.0.0.M10/temp
+ Using JRE_HOME:        /opt/jdk1.8.0_101/jre
+ Using CLASSPATH:       /opt/apache_tomcat/apache-tomcat-9.0.0.M10/bin/bootstrap.jar:/opt/apache_tomcat/apache-tomcat-9.0.0.M10/bin/tomcat-juli.jar
+ Tomcat started.
+
+ ##To check if tomcat process is running or not, run following command 
+ [root@client2 ~]# ps aux | grep tomcat | grep -v grep
+
+ Tomcat runs on port 8080 by default.  To check if your server is up and running correctly, use:
+ [root@client2 ~]# netstat -ntulp | grep 8080
+ tcp6       0      0 :::8080                 :::*                    LISTEN      6417/java
