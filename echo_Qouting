@@ -1,0 +1,31 @@
+############################################# echo command stuff ########################################################
+
+
+####echo statement without any special character. 
+$ echo The Geek Stuff 
+The Geek Stuff 
+
+####Echo statement with a special character ; . semi-colon is a command terminator in bash. In the following example, 
+####“The Geek” works for the echo and “Stuff” is treated as a separate Linux command and gives command not found. 
+$ echo The Geek; Stuff 
+The Geek -bash: Stuff: command not found 
+
+####To avoid this you can add a \ in front of semi-colon, which will remove the special meaning of semi-colon and just print it as shown below. 
+$ echo The Geek\; Stuff The Geek; Stuff 
+
+####Single Quote Use single quote when you want to literally print everything inside the single quote. 
+####Even the special variables such as $HOSTNAME will be print as $HOSTNAME instead of printing the name of the Linux host. 236
+$ echo 'Hostname=$HOSTNAME ;  Current User=`whoami` ; Message=\$ is USD' 
+Hostname=$HOSTNAME ;  Current User=`whoami` ; Message=\$ is USD 
+
+####Double Quote Use double quotes when you want to display the real meaning of special variables. 
+$ echo "Hostname=$HOSTNAME ;  Current User=`whoami` ; Message=\$ is USD" 
+Hostname=dev-db ;  Current User=ramesh ; Message=$ is USD 
+
+####Double quotes will remove the special meaning of all characters except the following:
+ • $ Parameter Substitution.
+ • `  Backquotes
+ • \$ Literal Dollar Sign.
+ • \´ Literal Backquote.
+ • \" Embedded Doublequote.
+ • \\ Embedded Backslashes. 

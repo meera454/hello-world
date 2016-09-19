@@ -1,0 +1,56 @@
+#### Bash FOR Loops Using C Like Syntax The second form of bash for loop is similar to the ‘C’ programming language for loop, which has three expressions (initialization, condition and update)
+
+ ## syntax:
+ for (( expr1; expr2; expr3 ))
+ do
+  commands
+ done
+ ## example: 1
+  [Pathan@host-7-73 ~]# for (( i=1; i <= 3; i++ )); do echo $i ; done
+  1
+  2
+  3
+  ## example: 2
+ [Pathan@host-7-73 ~]# for (( i=1; i <= 5; i++ )); do sleep $i; echo "Number:$i --> '$RANDOM'"; done
+ Number:1 --> '25279'
+ Number:2 --> '4357'
+ Number:3 --> '7811'
+ Number:4 --> '16125'
+ Number:5 --> '27429'
+	
+#### Increment Two Values Using Comma in C-style for loop
+ [Pathan@host-7-73 ~]# for (( i=1, j=10; i<=5 ; i++, j=j+5 )); do sleep $i;echo "Number $i: $j"; done
+ Number 1: 10
+ Number 2: 15
+ Number 3: 20
+ Number 4: 25
+ Number 5: 30
+
+#### TO DEBUG A SHELL SCRIPT USE SET –XV INSIDE THE SHELL SCRIPT AT THE TOP.
+#### "Total file size in current directory"
+
+  ##Output of Shell script WITH OUT DEBUG command: 
+ [Pathan@host-7-73 ~]# ts=0; for fs in `ls -l . | grep "^-" | awk '{print $5}'`; do let ts=$ts+$fs; done ;  echo "total size: $ts"
+ 
+ total size: 3145
+
+  ##Output of Shell script WITH DEBUG command  
+ [Pathan@host-7-73 ~]# set -xv; ts=0; for fs in `ls -l . | grep "^-" | awk '{print $5}'`; do let ts=$ts+$fs; done ;  echo "total size: $ts"
+ 
+ + ts=0
+ ls -l . | grep "^-" | awk '{print $5}'
+ ++ grep --color=auto '^-'
+ ++ awk '{print $5}'
+ ++ ls --color=auto -l .
+ + for fs in '`ls -l . | grep "^-" | awk '\''{print $5}'\''`'
+ + let ts=0+0
+ + for fs in '`ls -l . | grep "^-" | awk '\''{print $5}'\''`'
+ + let ts=0+1547
+ + for fs in '`ls -l . | grep "^-" | awk '\''{print $5}'\''`'
+ + let ts=1547+1598
+ + echo 'total size: 3145'
+ total size: 3145
+ printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/~}"
+ ++ printf '\033]0;%s@%s:%s\007' Pathan host-7-73 '~'
+ [Pathan@host-7-73 ~]#
+
