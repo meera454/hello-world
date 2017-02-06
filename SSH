@@ -1,0 +1,178 @@
+**********  SSH  ****************
+
+##Running a Command on a Remote Linux Server
+$ ssh [user]@[server] '[command]'
+Get the uptime of the remote server
+$ ssh root@192.168.1.1 'uptime'
+Reboot the remote server
+$ ssh root@192.168.1.1 'reboot'
+
+##Running Multiply Commands over SSH
+#METHOD 1 :
+$ ssh [user]@[server] '[command 1]; [command 2]; [command 3]'
+Get Uptime and Disk Usage
+
+$ ssh root@192.168.1.1 'uptime; df -h'
+#METHOD 2 :
+$ ssh [user]@[server] '[command 1] | [command 2] | [command 3]'
+Get Memory Usage and Load Average
+$ ssh root@192.168.1.1 'free -m | cat /proc/loadavg'
+#METHOD 3 :
+$ ssh [user]@[server] << EOF
+command 1
+command 2
+command 3
+EOF
+
+Show Kernel Version, CPU(s) info and Total RAM seen by the system
+$ ssh root@192.168.1.1 << EOF
+uname -a
+grep "model name" /proc/cpuinfo
+grep MemTotal /proc/meminfo
+EOF
+
+###Executing a Local Script on a Remote Linux Server
+$ ssh [user]@[server] 'bash -s' < [local_script]
+Execute the Local Script 'local_script.sh' on the Remote Machine
+$ ssh root@192.168.1.1 'bash -s' < local_script.sh
+#################################################################################################################
+
+### 3 Steps to Perform SSH Login Without Password ###
+SSH
+It is very easy to perform SSH login to the remote server without prompting a password.
+With a help of utilities from OpenSSH package, you can generate authentication keys on your local machine, copy public key to the remote server and add identities to your authentication agent.
+Just three simple steps separate you from the possibility of connecting to a remote server without prompting a password.
+##Step 1 : Generate a key pair on the local server
+Use ssh-keygen to generate authentication keys for SSH.
+
+$ ssh-keygen
+
+Output :
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/user/.ssh/id_rsa):
+Created directory '/home/user/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/user/.ssh/id_rsa.
+Your public key has been saved in /home/user/.ssh/id_rsa.pub.
+The key fingerprint is:
+8c:2a:ed:82:98:6d:12:0a:3a:ba:b2:1c:c0:25:be:5b
+##Step 2 : Install your public key on the remote server
+
+Use ssh-copy-id to connect to the remote machine and install your public key by adding it the authorized_keys file.
+
+$ ssh-copy-id -i ~/.ssh/id_rsa.pub UserName@RemoteServer
+
+Output :
+UserName@RemoteServer's password: ********
+Now try logging into the machine, with "ssh 'username@remoteserver'", and check in:
+~/.ssh/authorized_keys
+to make sure we haven't added extra keys that you weren't expecting.
+##Step 3 : Add a private key to the authentication agent on the local server
+Use ssh-add to add identities to the ssh-agent - the authentication agent.
+$ ssh-add
+
+Output :
+Identity added: /home/user/.ssh/id_rsa (/home/user/.ssh/id_rsa)
+
+Now you can log into the remote server via the SSH protocol without prompting a password.
+
+Note:
+Step3 not required if the output of #step2 like below(you may get this in RHEL7)
+Output :
+  Now try logging into the machine, with:   "ssh 'username@remoteserver'"
+  and check to make sure that only the key(s) you wanted were added.
+#########################################################################################################################
+
+###SSH with Public Key-Based Authentication
+SSH
+To improve the system security and to enable running automated maintenance tasks on other machines, you can use the key-based authentication instead of standard password authentication.
+Key-based authentication uses two keys, one "public" key that anyone is allowed to see, and another "private" key that only the owner is allowed to see.
+To securely communicate using key-based authentication, you need to create a public key for the computer you're logging in from, and securely transmit it to the computer you're logging in to. 
+
+#1. Generating a key pair on the local computer 
+Note that keys must be generated for each user separately.
+
+Create a directory if it doesn't already exist and set the permissions :
+$ mkdir -p ~/.ssh
+$ chmod 700 ~/.ssh
+
+Enter the directory and generate public/private RSA key pair :
+$ cd ~/.ssh
+$ ssh-keygen -t rsa
+
+You can add comment to your public key :
+$ ssh-keygen -t rsa -C "A comment... usually an email is enough here..."
+
+Copy the public key to the remote host:
+$ scp -p id_rsa.pub RemoteUser@RemoteHost
+#2. Connecting to the remote server and installing the public key
+
+$ ssh RemoteUser@RemoteHost
+Password: ********
+
+Create a directory if it doesn't already exist and set the permissions :
+RemoteHost$ mkdir -p ~/.ssh
+RemoteHost$ chmod 700 ~/.ssh
+
+Copy the public key to 'authorized_keys' file and set the permissions :
+RemoteHost$ cat id_rsa.pub >> ~/.ssh/authorized_keys
+RemoteHost$ chmod 600 ~/.ssh/authorized_keys
+
+Remove the public key from the home directory and log out :
+RemoteHost$ rm -f ~/id_rsa.pub
+RemoteHost$ logout
+#3. Adding the private key to the authentication agent on the local server
+$ ssh-add
+Identity added: /home/user/.ssh/id_rsa (/home/user/.ssh/id_rsa)
+
+Now you can log into the remote server via the SSH protocol without a password.
+################################################################################################################################################################
+
+###HowTo: Disable SSH Host Key Checking
+SSH
+By default, the SSH client verifies the identity of the host to which it connects.
+If the remote host key is unknown to your SSH client, you would be asked to accept it by typing "yes" or "no".
+This could cause a trouble when running from script that automatically connects to a remote host over SSH protocol.
+This article explains how to bypass this verification step by disabling host key checking.
+
+##The Authenticity Of Host Can't Be Established
+When you log into a remote host that you have never connected before, the remote host key is most likely unknown to your SSH client, and you would be asked to confirm its fingerprint:
+The authenticity of host ***** can't be established.
+RSA key fingerprint is *****.
+Are you sure you want to continue connecting (yes/no)?
+If your answer is yes, the SSH client continues login, and stores the host key locally in the file ~/.ssh/known_hosts.
+If you would like to bypass this verification step, you can set the "StrictHostKeyChecking" option to "no" on the command line:
+$ ssh -o "StrictHostKeyChecking=no" user@host
+This option disables the prompt and automatically adds the host key to the ~/.ssh/known_hosts file.
+
+##Remote Host Identification Has Changed
+However, even with "StrictHostKeyChecking=no", you may be refused to connect with the following warning message:
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+    Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+    It is also possible that the RSA host key has just been changed.
+    The fingerprint for the RSA key sent by the remote host is
+    *****
+    Please contact your system administrator.
+    Add correct host key in /home/user/.ssh/known_hosts to get rid of this message.
+    Offending key in /home/user/.ssh/known_hosts:1
+    RSA host key for ***** has changed and you have requested strict checking.
+    Host key verification failed.
+
+If you are sure that it is harmless and the remote host key has been changed in a legitimate way, you can skip the host key checking by sending the key to a null known_hosts file:
+$ ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" user@host
+You can also set these options permanently in ~/.ssh/config (for the current user) or in /etc/ssh/ssh_config (for all users), either for all hosts or for a given set of IP addresses:
+
+##Disable SSH Host Key Checking For All Hosts
+Host *
+   StrictHostKeyChecking no
+   UserKnownHostsFile=/dev/null
+
+
+##Disable SSH Host Key Checking For 192.168.0.0/24
+Host 192.168.0.*
+   StrictHostKeyChecking no
+   UserKnownHostsFile=/dev/null
