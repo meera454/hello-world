@@ -1,0 +1,205 @@
+##  Jenkins Installation in Linux
+
+Jenkins:
+Jenkins is a self-contained Java-based program, ready to run out-of-the-box, with packages for Windows, Mac OS X and other Unix-like operating systems. The project was forked from Hudson after a dispute with Oracle. Runs in servlet Container(Tomcat, Glass fish). Supported by over 400 plugins. In this artical we will known about how to install Jenkins.
+Jenkins requires Java to run, Before installing Jenkins make sure you have java installed on your system. Use the following  command to check the version of the installed Java.
+
+##Installation of Java
+Jenkins requires Java in order to run, yet certain distros don't include this by default. To install the Open Java Development Kit (OpenJDK) run the following:
+Note: If running CentOS, ensure you follow the guide below.
+
+[root@localhost ~]# java -version
+    java version "1.8.0_101"
+    Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
+[root@localhost ~]#
+
+If java doesn’t found in your machine use following method to install it.
+
+[root@localhost ~]# cd /opt/
+[root@localhost opt]#wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz "
+[root@localhost opt]#tar xzf jdk-8u91-linux-x64.tar.gz
+[root@localhost opt]# cd jdk1.8.0_91/
+[root@localhost jdk1.8.0_91]# alternatives --install /usr/bin/java java /opt/jdk1.8.0_91/bin/java 2
+[root@localhost jdk1.8.0_91]# alternatives --config java
+    
+    There are 4 programs which provide 'java'.
+    
+    Selection    Command
+    -----------------------------------------------
+    1      /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.101-2.6.6.1.el7_2.x86_64/jre/bin/java
+    *  2      /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.91-0.b14.el7_2.x86_64/jre/bin/java
+    + 3      /opt/jdk1.7.0_79/bin/java
+    4      /opt/jdk1.8.0_91/bin/java
+    
+    Enter to keep the current selection[+], or type selection number: 4
+[root@localhost ~]# java -version
+    java version "1.8.0_101"
+    Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
+[root@localhost ~]#
+
+The default CentOS version of Java is not compatible with Jenkins. Jenkins typically works best with a Sun implementation of Java, which is not included in CentOS for licensing reasons. so install the latest verison of java from official site. After the successful installation of java install Jenkins package
+
+##  Installation of Jenkins ##
+
+For the installation of Jenkins we have to add the Jenkins repository to the yum repos, by using the following commands.
+
+[root@localhost ~]# wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+    --2016-06-03 01:06:58--  http://pkg.jenkins-ci.org/redhat/jenkins.repo
+    Resolving pkg.jenkins-ci.org (pkg.jenkins-ci.org)... 52.202.51.185
+    Connecting to pkg.jenkins-ci.org (pkg.jenkins-ci.org)|52.202.51.185|:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 75
+    Saving to: ‘/etc/yum.repos.d/jenkins.repo’
+    
+    100%[======================================>] 75          --.-K/s   in 0s
+    
+    2016-06-03 01:07:00 (5.42 MB/s) - ‘/etc/yum.repos.d/jenkins.repo’ saved [75/75]
+
+[root@localhost ~]# rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+[root@localhost ~]# yum install jenkins
+    Loaded plugins: fastestmirror, langpacks
+    Loading mirror speeds from cached hostfile
+    * atomic: www4.atomicorp.com
+    * base: centos.excellmedia.net
+    * epel: mirror.wanxp.id
+    * extras: centos.excellmedia.net
+    * nux-dextop: li.nux.ro
+    * updates: centos.excellmedia.net
+    Resolving Dependencies
+    --> Running transaction check
+    ---> Package jenkins.noarch 0:2.7-1.1 will be installed
+    --> Finished Dependency Resolution
+    
+    Dependencies Resolved
+    
+    =========================================================================
+    Package          Arch            Version            Repository        Size
+    =========================================================================
+    Installing:
+    jenkins          noarch          2.7-1.1            jenkins           65 M
+    
+    Transaction Summary
+    =========================================================================
+    Install  1 Package
+    
+    Total download size: 65 M
+    Installed size: 66 M
+    Is this ok [y/d/N]: y
+    Downloading packages:
+    No Presto metadata available for jenkins
+    jenkins-2.7-1.1.noarch.rpm                             |  65 MB   02:23
+    Running transaction check
+    Running transaction test
+    Transaction test succeeded
+    Running transaction
+    Installing : jenkins-2.7-1.1.noarch                                   1/1
+    Verifying  : jenkins-2.7-1.1.noarch                                   1/1
+    
+    Installed:
+    jenkins.noarch 0:2.7-1.1
+    
+    Complete!
+[root@localhost ~]#
+    
+
+    
+##Start/Stop:
+sudo service jenkins start/stop/restart
+sudo chkconfig jenkins on   
+Now we can start the Jensis Service by using systemctl as shown below
+
+
+[root@localhost ~]# systemctl start jenkins
+[root@localhost ~]# systemctl status jenkins
+    ● jenkins.service - LSB: Jenkins Continuous Integration Server
+    Loaded: loaded (/etc/rc.d/init.d/jenkins)
+    Active: active (running) since Fri 2016-06-03 01:27:17 EDT; 9s ago
+        Docs: man:systemd-sysv-generator(8)
+    Process:6488 ExecStart=/etc/rc.d/init.d/jenkins start(code=exited,status=0/SUCCESS)
+    CGroup: /system.slice/jenkins.service
+            └─6503 /etc/alternatives/java -Dcom.sun.akuma.Daemon=daemonize...
+    
+    Jun 03 01:27:12 localhost.localdomain systemd[1]: Starting LSB: Jenkins C...
+    Jun 03 01:27:13 localhost.localdomain runuser[6489]: pam_unix(runuser:ses...
+    Jun 03 01:27:17 localhost.localdomain runuser[6489]: pam_unix(runuser:ses...
+    Jun 03 01:27:17 localhost.localdomain jenkins[6488]: Starting Jenkins [  ...
+    Jun 03 01:27:17 localhost.localdomain systemd[1]: Started LSB: Jenkins Co...
+    Hint: Some lines were ellipsized, use -l to show in full.
+[root@localhost ~]#
+
+Note: if you get the following error message, ensure that Java has been installed:
+    "Starting jenkins (via systemctl):  Job for jenkins.service failed. See 'systemctl status jenkins.service' and 'journalctl -xn' for details. [FAILED]"
+
+##What does this package do?
+Jenkins will be launched as a daemon on startup. See /etc/init.d/jenkins for more details.
+The 'jenkins' user is created to run this service. If you change this to a different user via the config file, you must change the owner of /var/log/jenkins, /var/lib/jenkins, and /var/cache/jenkins.
+Log file will be placed in /var/log/jenkins/jenkins.log. Check this file if you are troubleshooting Jenkins.
+/etc/sysconfig/jenkins will capture configuration parameters for the launch.
+By default, Jenkins listen on port 8080. Access this port with your browser to start configuration.  Note that the built-in firewall may have to be opened to access this port from other computers.  (See http://www.cyberciti.biz/faq/disable-linux-firewall-under-centos-rhel-fedora/ for instructions how to disable the firewall permanently)
+A Jenkins RPM repository is added in /etc/yum.repos.d/jenkins.repo
+
+##Disable the firewall    
+Once the installation of Jenkins completed stop firewall or add the Jenkins port in Firewall in the following way.
+
+[root@localhost ~]# firewall-cmd --zone=public --add-port=8080/tcp --permanent
+    success
+[root@localhost ~]# firewall-cmd --zone=public --add-service=http --permanent
+    success
+[root@localhost ~]# firewall-cmd --reload
+    success
+[root@localhost ~]# firewall-cmd --list-all
+    public (default, active)
+    interfaces: enp2s0
+    sources:
+    services: dhcpv6-client http ssh
+    ports: 8080/tcp
+    masquerade: no
+    forward-ports:
+    icmp-blocks:
+    rich rules:
+[root@localhost ~]#
+
+
+
+
+
+###
+Now we can access the Jenkins webpage by using the Url: http://ipaddress of server:8080 or http://localhost:8080
+
+    <jenkins homepage>
+
+You can found the password at /var/lib/jenkins/secrets/initialAdminpassword
+
+After logged in you can found the page as follows.
+
+	<jenkins start>
+
+Once you click on Start using Jenkins Button.
+
+	<jenkins admin dashboard>
+
+By using the Manage Jenkin option we can set options like configure system, configure global security, Global tool configuration, manage plugins etc
+
+jenkins configuration
+
+Select  Configure Global Security(Second Option) check the  Enable Security Box. The page will expand to offer a choice of access control.
+
+configure global security
+
+Select Jenkins own user database Place a check mark next to Allow users to sign up (If you want to allow users to sign up)  In the sub section of Authorization we have options like Anyone can do anything, Legacy mode, Logged-in users can do anything and Allow anonymous read access. After all the changes do not forget to press the Save button at the bottom of the page.
+
+Manage Plugins
+
+On the manage Jenkins page select the manage plugin option, it opens the plugin manager.
+
+jenkins plugin manager
+
+Here we have options like install without restart, Download and Now Install after restart. By using this we can install the available new packages or updates for already installed plugins.
+
+
+The Official Website to know more about Jenkins is https://jenkins.io/index.html
+Ref: https://www.unixmen.com/jenkins-installation-linux/, https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+On RPM-based distributions, such as Red Hat Enterprise Linux (RHEL), CentOS, Fedora or Scientific Linux, you can install Jenkins through yum.
+Recent versions are available in a YUM repository: http://pkg.jenkins-ci.org/redhat/
