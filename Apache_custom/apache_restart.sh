@@ -95,4 +95,7 @@ esac
 exit $RETVAL
 
 ##Ref : https://gist.github.com/vittee/7262943
+## To make this script as service and run on boot copy it /etc/init.d/ and run chkconfig as below
+#--> # cp apache_restart.sh /etc/init.d/apache.sh 
+#--> # chkconfig --add apache.sh ; chkconfig apache.sh on
 
